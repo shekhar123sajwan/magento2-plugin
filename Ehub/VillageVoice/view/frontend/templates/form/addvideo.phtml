@@ -1,0 +1,499 @@
+<link rel="stylesheet" type="text/css" href="<?php  echo $block->getViewFileUrl('Ehub_VillageVoice/js/bs-tagsinput/src/bootstrap-tagsinput.css'); ?>"/>
+<style>
+.upload-banner-box {
+    min-height: 250px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #95a83f;
+}
+.main .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+label.control-label {
+    font-weight: bold !important;
+    text-transform: uppercase;
+}
+#btn-upload-video {
+    display: block;
+    background: transparent !important;
+    color: black !important;
+    border: 1px solid gray !important; 
+    outline: none;
+    font-weight: bold;
+    position: absolute;
+}
+.ms-options-wrap > .ms-options > ul label {
+  padding: 4px 4px 4px 20px !important;
+}
+.ms-options-wrap.ms-active > .ms-options {
+      left: auto;
+}
+.ms-options-wrap > button:focus, .ms-options-wrap > button {
+  border: 1px solid #aaa !important;
+  font-size: 13px !important;
+  color: #aaa !important;
+}
+.page-title {
+  text-align: center;
+}
+.upload-banner-box {
+  position: relative;
+}
+#v-banner-error {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+}
+.save-form {
+ text-align: center;
+}
+.btn-default:hover,.btn-default {
+   background-color: #95a83f !important;
+}
+#v_about {
+    visibility: hidden !important; 
+    line-height: 0;
+    height: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    display: block !important;    
+}
+
+
+
+ .bootstrap-tagsinput input {
+    border: none !important;
+    box-shadow: none;
+    outline: none; 
+}
+.bootstrap-tagsinput {
+  display: block !important;
+  height: 40px;
+  line-height: 2.2;  
+}
+.bootstrap-tagsinput .tag {
+    margin-right: 3px; 
+    padding: 5px !important;
+    padding-bottom: 0px;
+    padding-top: 10px;
+}
+
+.twitter-typeahead {
+   top: -3px !important;
+}
+
+.twitter-typeahead>.tt-menu { 
+    border: 1px solid #80808042;
+    left: 4px !important;
+    background: white;
+    box-shadow: 1px 1px #c5b9b952;
+    top: 38px !important;
+    padding: 0 2px;
+}
+
+div.tt-dataset .tt-suggestion {
+    border-bottom: 1px solid #8080803d;
+    padding: 0px 3px;
+}
+
+div.tt-dataset .tt-suggestion:last-child {
+    border-bottom: none !important;
+}
+
+div.tt-dataset .tt-cursor {
+    background: #5bc0de;
+    color: white;
+    font-weight: bold;
+}
+
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 767px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+  .v-video {
+     padding-left: 0px !important;
+     padding-top: 11px !important;
+  }
+  .ms-options-wrap {
+    position: relative;
+  }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .v-video {
+       padding-left: 3px !important;
+    }
+    .ms-options-wrap {
+      position: relative;
+    }
+   .control-label { 
+    font-size: 13px !important;
+}
+}
+
+</style>
+
+
+
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/ytextend.css" />
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/yttheme.css" />
+<div class="container">
+<?php
+    $mainBlockObj= $block->getLayout()->createBlock('Ehub\VillageVoice\Block\AddVideo'); ?>
+
+<?php  
+    //edit video request
+    if($mainBlockObj->editVideoRequest() ) {
+
+       $mainBlockObj->getEditVideoData(); 
+
+       if(!$mainBlockObj->checkExistingUserVideo()) {
+            
+          $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+          $redirect = $objectManager->get('\Magento\Framework\App\Response\Http'); 
+
+          if($mainBlockObj->isUserLogin()) {
+
+             $redirect->setRedirect('/');
+
+          }else {
+
+                $redirect->setRedirect('/customer/account/login');
+
+          }
+
+       } 
+    }   ?>
+
+ <?php if($mainBlockObj->isVVUser() || (!$mainBlockObj->isVVUser() && !$mainBlockObj->editVideoRequest()) ) {?>
+<form class="form-horizontal col-sm-8" id="upload-video-form" method="Post" enctype="multipart/form-data" action="<?php echo $mainBlockObj->getAction(); ?>" data-mage-init='{"validation": { "rules" : {
+    "v_title" : {
+       "required": true
+    },
+    "v_cat" : {
+       "required": true
+    }, 
+    "v_url": {
+      "required": true
+    },
+    "v_about": {
+      "required": true
+    }
+   } }
+  }'>
+   <?php if($mainBlockObj->editVideoRequest() && $mainBlockObj->checkExistingUserVideo()) { ?>
+
+
+     <h2 align="center" style="margin-bottom: 5px;"><?php echo __($mainBlockObj->getTitle());?></h2>
+
+     <?php if($mainBlockObj->getVStatus() == '0' ) { 
+
+       echo __('<div class="alert alert-danger  alert-dismissible" style="padding: 7px; margin: 8px -15px; padding-right: 25px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Info!</strong> Video is not approverd by admin.</div>');
+
+      } ?>
+
+    <?php  }  ?>
+    <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>"> 
+
+    <div class="form-group" > 
+      <div class="upload-banner-box">
+        <input type="file" class="form-control" id="v-banner" placeholder="Upload Banner" name="v_banner"  accept="image/*" style="visibility: hidden;" data-img="<?php echo $mainBlockObj->getBanner();?>" value="<?php echo $mainBlockObj->getBanner();?>">
+        <div for="v-banner" generated="true" class="mage-error" id="v-banner-error" style="display: block; display: none;"><?php echo __('This Field is required.'); ?></div> 
+        <button class="btn btn-default" type="button" id="btn-upload-video"><?php echo __("Upload Banner"); ?> </button>
+      </div>
+    </div>  
+
+  <?php if($mainBlockObj->getVId()){ ?>
+      <input type="hidden" name="v_id" value="<?php echo $mainBlockObj->getVId(); ?>">
+  <?php } ?>
+
+
+  <div class="form-group">
+    <div class="v-title col-sm-6" style = "padding: 0;">
+      <label class="control-label" for="v-title"><?php echo __("Video Title"); ?></label> 
+        <input type="text" class="form-control" id="v-title" placeholder="Video Title" name="v_title" value="<?php echo __($mainBlockObj->getTitle());?>"> 
+    </div>
+
+     <div class="v-video col-sm-6" style = "padding: 0; padding-left: 12px;">
+      <label class="control-label" for="v-url"><?php echo __("Facebook/Youtube Video Link"); ?></label> 
+        <input type="text" class="form-control" id="v-video" placeholder="Video Link" name="v_url" value="<?php echo $mainBlockObj->getUploadLink();?>">
+    </div> 
+   </div>
+
+
+<!--   <div class="form-group"> 
+
+      <label class="control-label" for="v-youtube-channel"><?php //echo __("YouTube Channel"); ?></label>
+
+        <input type="text" class="form-control" id="v-youtube-channel" placeholder="YouTube Channel ID" name="vv_youtube_channel" value="<?php //echo __($mainBlockObj->getYouTubeChannel());?>"> 
+
+   </div> -->
+
+
+
+     <div class="form-group">
+      <label class="control-label" for="v-cat"><?php echo __("Categories"); ?></label> 
+        <select name="v_cat[]" class="required-entry select"  multiple="multiple" > 
+
+           <?php if(!$mainBlockObj->editVideoRequest()) { ?>
+            <?php $cats = $mainBlockObj->getAllCategories()->getData(); ?>
+             <?php  foreach ($cats  as $key => $cat) { ?>                
+               <option value="<?php echo $cat['c_id']; ?>"><?php echo __($cat['c_title']); ?></option>
+             <?php } 
+            } 
+              else {   
+              $cats = $mainBlockObj->getAllCategories()->getData(); 
+              $selected_cats = $mainBlockObj->getvCategory(); ?>
+              <?php  foreach ($cats  as $key => $cat) { ?>                
+                 <option value="<?php echo $cat['c_id']; ?>" <?php if(in_array($cat['c_id'], $selected_cats) ) { ?>selected = "selected" <?php } ?>><?php echo __($cat['c_title']); ?></option>
+              <?php }
+
+              } ?>
+
+        </select>  
+        <div for="v_cat" generated="true" class="mage-error" id="v_cat-error"></div>
+    </div>    
+
+
+     <div class="form-group v-tags" >
+
+      <label class="control-label" for="v_tag"><?php echo __("Tags"); ?></label> 
+
+      <input type="text" id="v-tags" class="" name="tags[]" data-role="tagsinput">
+
+     </div>
+ 
+
+      <div id="tag_values">
+        <?php if($block->getVTags($mainBlockObj->getVId()) && $mainBlockObj->getVId() ) { ?>
+          <?php foreach ($block->getVTags($mainBlockObj->getVId()) as  $tag) { ?>
+        
+         <?php if(!empty($tag['tag'] )) {?>
+          <input type='hidden' class='tag_val<?php echo $mainBlockObj->strip_char($tag['tag']);?>' name='tag[]' value='<?php echo __($tag['tag']);  ?>'>
+
+         <?php } } ?>
+        <?php  }  ?>
+      </div>
+
+
+
+    <div class="form-group">
+      <label class="control-label" for="v-desc"><?php echo __("About Video"); ?></label> 
+        <textarea name="v_about" id ="v_about" rows="6" style="resize: none;" ><?php  echo __($mainBlockObj->getAboutDesc()); ?></textarea>
+    </div> 
+
+
+
+
+     <?php if( $mainBlockObj->editVideoRequest() ) {?>
+      <div class="form-group"> 
+   
+      <?php if( $mainBlockObj->getVStatus() > 0 ) { ?>
+        <label class="control-label" for="v-status"><?php echo __("Video Status"); ?></label>
+
+        <select name="v_status" class="form-control" > 
+            
+            <?php if($mainBlockObj->getVStatus() == '2') { ?>
+
+             <option value="2" selected="selected"><?php echo __('Disabled'); ?></option> 
+             <option value="1"><?php echo __('Enabled'); ?></option> 
+
+            <?php } else { ?>
+
+             <option value="2"><?php echo __('Disabled'); ?></option> 
+             <option value="1" selected="selected"><?php echo __('Enabled'); ?></option> 
+
+            <?php } ?>
+        </select>          
+       <?php } ?>
+      </div>
+   <?php } ?>
+          
+    <div class="form-group save-form">         
+        <button type="submit" class="btn btn-default" id="save">Save</button> 
+    </div>
+  </form>
+
+<?php } else {  
+  echo __('<div class="alert alert-danger  alert-dismissible" style="width: 100%; padding: 8px; padding-right: 25px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Info!</strong> Your account is not approved please contact to adminstratator.</div>');
+ }  
+ ?>
+</div>
+
+<?php
+//$allStores = $this->getAllStores();   
+//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+?>
+   <script>
+ 
+    require([
+      'jquery',
+      'mage/mage',  
+      "mage/adminhtml/wysiwyg/tiny_mce/setup" ,
+      'multiselect',
+      'js_tags',
+      'typeahead',
+      'bloodhound'
+    ], function ($) {
+
+      var config = {};
+
+      jQuery('#btn-upload-video').on('click', function(event) {
+       event.preventDefault();
+        $('#v-banner').trigger('click');
+     }); 
+
+    tinymce.init({
+      selector: 'textarea',
+      height: 200,
+      menubar: false, 
+      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help', 
+    });
+
+    jQuery('#v-banner').on('change', function() {  
+            var file = this.files[0];
+            var file_type = this.files[0]['type'];
+
+            if (!file_type.match('image/')) {
+               return;
+            }
+            var reader = new FileReader(); 
+            reader.onloadend = function () {
+              console.log(file_type,file);
+               $('.upload-banner-box').css({'background-image': 'url("' + reader.result + '")', 
+                                            'background-position': "center",
+                                            'background-size': '100% 100%' });
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+            }
+    });
+
+    $('select[multiple]').multiselect({
+      columns: 2,
+      placeholder: 'Select Categories',
+      search: true, 
+      minHeight :  200, 
+      showCheckbox: true, 
+       maxWidth  : 780,  
+    });    
+
+    jQuery('#save').on('click', function(e) {
+      let form_error = false; 
+      if(jQuery('.ms-options ul>li').hasClass('selected') !== true) {
+         form_error = true;
+      }
+      if(form_error) { 
+         e.preventDefault(); 
+         jQuery('#v_cat-error').html('This is required');
+      }else {
+         jQuery('#v_cat-error').html('');
+      }
+    });
+ 
+ 
+
+    var $elt = jQuery('#v-tags').tagsinput('input');
+
+    var citynames = new Bloodhound({
+      initialize: false,
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+        cache : false,
+        url: '<?php echo $block->getBaseUrl(); ?>voice/video/tags?tag_suggestion=1',
+        filter: function(list) {
+          return $.map(list, function(cityname) {
+            return { name: cityname }; });
+        }
+      }
+    });
+    citynames.initialize(); 
+ 
+
+    $elt.tagsinput({  
+      confirmKeys: [9, 32, 13, 44],
+      trimValue: true,  
+      allowDuplicates: false, 
+      typeaheadjs: {
+        name: 'citynames',
+        displayKey: 'name',
+        valueKey: 'name',
+        source: citynames.ttAdapter()
+      }
+    });
+
+ 
+
+
+  //event trigger when tag addded in input box
+  jQuery('.bootstrap-tagsinput input').on('itemAdded', function(event) {
+    // event.item: contains the item
+
+    let tag = (event.item).replace(/[^A-Z0-9]/ig, "_");
+
+     jQuery('#tag_values').find('input').each(function( index ) {
+      if( jQuery( this ).val() == jQuery.trim(event.item) ) {
+        jQuery(this).remove();
+      }
+    });  
+
+    jQuery('#tag_values').append("<input type='hidden' class='tag_val"+ tag.toLowerCase() +"' name='tag[]' value='"+ jQuery.trim(event.item) +"'>");
+ 
+
+  });
+ 
+ //event trigger when tag removed from input box
+  jQuery('.bootstrap-tagsinput input').on('itemRemoved', function(event) {
+    // event.item: contains the item
+    let tag = (event.item).replace(/[^A-Z0-9]/ig, "_");
+
+    jQuery('#tag_values').find(".tag_val"+ tag.toLowerCase() +"").remove();
+   
+  });
+
+
+ //load relevent video tags
+  <?php if($block->getVTags($mainBlockObj->getVId()) && $mainBlockObj->getVId() ) { ?>
+       <?php foreach ($block->getVTags($mainBlockObj->getVId()) as  $tag) { ?>
+        
+        <?php if(!empty($tag['tag'] )) {?>
+         
+             $elt.tagsinput('add', "<?php echo __($tag['tag']); ?>") ;
+
+       <?php } } ?>
+    <?php  }  ?>
+
+ 
+
+ //check if tagsinput container class initilize multiple times
+  let bs_tags_class = jQuery('.twitter-typeahead').parent('.bootstrap-tagsinput').parent('.bootstrap-tagsinput');
+ 
+  if(bs_tags_class.length > 0 ) { jQuery('.twitter-typeahead').parent('.bootstrap-tagsinput').unwrap(); }
+
+});
+
+
+</script>
+
+<style>
+<?php if($mainBlockObj->editVideoRequest()) { ?>
+.upload-banner-box {
+    background-image: url(<?php echo $mainBlockObj->getBannerUrl();?>);
+    background-position: center center;
+    background-size: 100% 100%;
+  }
+<?php } ?>
+</style>

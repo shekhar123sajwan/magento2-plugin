@@ -1,0 +1,126 @@
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+
+$SessionCollection = $objectManager->create('Magento\Customer\Model\Session');
+
+$user_data = $SessionCollection->getCustomer()->getData();
+
+?>
+
+<div class="header-container header-style-1">
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-7 hidden-xs hidden-sm ads-header">
+                    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('ads-header-1')->toHtml(); ?>
+                </div>
+
+                <div class="col-lg-6 col-md-5  col-sm-12 col-xs-12 language-currency-top">
+                    <?php echo $block->getChildHtml('currency-header'); ?>
+                    <?php echo $block->getChildHtml('language-header'); ?>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-3 logo-header">
+                    <?php echo $block->getChildHtml('logo-header'); ?>
+                </div>
+
+                <div class="col-lg-6 col-md-5 col-sm-6 col-xs-4 main-megamenu">
+                    <?php echo $block->getChildHtml('navigation-header-megamenu'); ?>
+                    <div class="navigation-mobile-container">
+                        <?php echo $block->getChildHtml('navigation.mobile'); ?>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-3 col-xs-8 header-middle-right">
+
+                    <div class="user-info">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <?php
+                        $login_customer = $block->getLayout()->createBlock('Magento\Customer\Block\Account\Customer');
+                        ?>
+
+                        <?php if ($login_customer->customerLoggedIn()) { ?>
+                        
+                            <a href="<?php echo $this->getUrl('customer/account') ?>"
+                               title="<?php echo __('My Account') ?>"><?php echo __('My Account') ?></a> | 
+                            <a href="<?php echo $this->getUrl('customer/account/logout') ?>"
+                               title="<?php echo __('Logout') ?>"><?php echo __('Logout') ?></a>
+                        <?php } else { ?>
+                            <a class="creat" href="<?php echo $this->getUrl('customer/account/login') ?>"
+                               title="<?php echo __('Login') ?>"><?php echo __('Login') ?> </a> 
+                               <?php //echo __('or') ?>
+                            <!--<a href="<?php //echo $this->getUrl('customer/account/create') ?>"
+                               title="<?php //echo __('Register') ?>"><?php //echo __('Register') ?></a>-->
+                        <?php } ?>
+                    </div>
+                    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('contact-header-1')->toHtml(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-bottom">
+        <div class="container">
+            <div class="row">
+                <!--<div class="col-lg-2 col-md-3 hidden-sm hidden-xs sidebar-megamenu">
+
+                    <?php
+                    //echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('megamenu-vertical')->toHtml();
+                    ?>
+
+
+                </div>-->
+
+                <div class="col-lg-7 col-md-6 col-sm-6  col-xs-8 searchbox-header">
+                    <?php echo $block->getChildHtml('search-header-pro'); ?>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-4 inner-right-bottom">
+                    <div class="minicart-header">
+                        <div class="minicart-content">
+                            <?php echo $block->getChildHtml('cart-header'); ?>
+                        </div>
+                    </div>
+
+                    <!-- Account Login -->
+
+                    <!-- Add Video -->
+                    <div class=" sn hidden-xs hidden-sm header-wishlist vv-user">
+                        <!-- <a class="fa fa-heart" href="<?php //echo $block->getUrl('wishlist') ?>"></a> -->
+                        <?php if( isset($user_data['entity_id']) && !empty($user_data['entity_id'])) {?>
+                            <a class="vv-user" href="<?php echo $block->getUrl('voice/user/').$user_data['entity_id']; ?>"><?php echo __('Profile'); ?></a>
+                        <?php } else { ?>
+                            <a class="vv-login" href="<?php echo $block->getUrl('voice/register') ?>"><?php echo __('Register'); ?></a>
+                        <?php } ?>
+                    </div>
+
+                    <?php if( isset($user_data['entity_id']) && !empty($user_data['entity_id'])) {?>
+                    <div class=" sn  hidden-xs hidden-sm  header-compare">
+
+                        <a class="add-v-link" href="<?php echo $block->getUrl('voice/video/add') ?>">
+                            <?php echo __('Add Video'); ?>
+                        </a>
+                    </div>
+                    <?php } ?>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+.add-v-link,.vv-user,.vv-login {
+    color: white !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+</style>
+

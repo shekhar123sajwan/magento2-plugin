@@ -1,0 +1,151 @@
+<style>
+    
+
+</style>
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/ytextend.css" />
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/yttheme.css" />
+<div class="container-inner vv-categories">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <h2 class="ggk-sub-title"><?php echo __("Explore all categories"); ?></h2>
+    </div>
+
+    <?php  
+        $blockObj = $block->getLayout()->createBlock('Ehub\VillageVoice\Block\Voice');
+        $userBlockObj = $block->getLayout()->createBlock('Ehub\VillageVoice\Block\User');
+        $featured_videos = $blockObj->getFeaturedVidoes();  
+        $liveUsers = $blockObj->getLiveUsers();  
+
+    ?>
+    <div id = "category-boxes" class="col-lg-12 col-md-12 col-sm-12">
+    <?php   $all_cats = $blockObj->getAllCategories();  ?>
+    <?php if(isset( $all_cats ) && !empty( $all_cats )) { ?>
+      <?php foreach ($all_cats as $key => $all_cat) {   ?> 
+        <div class="col-lg-2 vv-category">
+            <div class="cat-card">
+              <a href="<?php echo $blockObj->getCatUrl($all_cat['c_url_key']);?>">
+                <div class="cat-img">
+                    <?php  
+                     if($blockObj->getCategoryImage($all_cat['c_banner']) ) { ?>
+                    <img aria-hidden="true" class="iris_card__icon-img" src="<?php echo $blockObj->getCategoryImage($all_cat['c_banner']);?>">
+                    <?php } else { ?>
+                    <img aria-hidden="true" class="iris_card__icon-img" src="https://i.vimeocdn.com/filter/graph?src=https%3A%2F%2Fi.vimeocdn.com%2Fcustom_asset%2F16.jpg,blur(sigma=30)"> 
+                    <?php } ?>
+
+                </div>
+                <div class="overlay-text">
+                    <h3 class="heading"><?php echo __($all_cat['c_title']); ?></h3>
+                </div>
+               </a>
+           </div>
+        </div>
+       <?php  }  }?> 
+                                                                                       
+
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+<hr/>
+
+<?php if(isset($featured_videos ) && !empty( $featured_videos )) { ?>
+<div class="featured-cat">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <h2 class="ggk-sub-title">  <?php echo __("Featured Videos"); ?> </h2>
+    </div>
+ 
+
+<?php foreach ($featured_videos  as $key => $featured_video) { ?> 
+    <?php $isUserLive = $userBlockObj->isUserLive($featured_video['v_user_id']) ?>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 vv-category">
+        <div class="cat-card">
+
+          <a class="video-card" href="<?php echo $blockObj->getVideoUrl($featured_video['v_url_key']);?>">
+                <div class="cat-img">
+                    <img aria-hidden="true" class="iris_card__icon-img" 
+                    src="<?php echo  $blockObj->getBannerUrl($featured_video['v_banner']); ?>"> 
+                </div>
+                <div class="video-title">
+                    <span><?php echo __($featured_video['v_title']); ?></span>
+                </div>
+                 <div class="author-desc"> 
+                   <a href="<?php echo $blockObj->getVideoUserUrl($featured_video['v_user_id']); ?>" class="img-box">
+
+               <?php  if( $blockObj->getUserProfile( $featured_video['v_user_id']) ) {?>
+                  <img src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($blockObj->getUserProfile($featured_video['v_user_id']) ) ] ); ?>" alt="<?php echo __($featured_video['firstname']); ?>" class="user-img-icon">
+               <?php } else { ?>
+                  <img  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" class="user-default-icon">
+               <?php } ?> 
+                    <span class="author-name-box"> <a href="<?php echo $blockObj->getVideoUserUrl($featured_video['v_user_id']); ?>" style="padding-left: 9px;"><span class="author-name"><?php echo __($featured_video['firstname']); ?></span>
+                    <?php if($isUserLive !== false) { ?><span class="user_online_dot"></span> <?php } ?></a>                
+                    </span>    
+                   </a>
+                </div>  
+           </a>                
+        </div>
+    </div>   
+<?php } ?>
+
+</div>
+<div style="clear: both;"></div>
+<hr/>
+<?php } ?>
+
+<?php if(isset( $liveUsers ) && !empty($liveUsers )) { ?>
+<?php $userObjBlock= $block->getLayout()->createBlock('Ehub\VillageVoice\Block\SearchResults');?>
+<div id="live_users">
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <h2 class="ggk-sub-title">  <?php echo __("Live Users"); ?> </h2>
+</div>
+<?php foreach ($liveUsers  as $key => $liveUser) { ?> 
+<?php  $userData = $userBlockObj->getUserByID($liveUser['customer_id']); ?>
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 vv-live-user">
+    <div class="user-profile-card">
+
+      <a class="profile-card" href="<?php echo $userObjBlock->getVideoUserUrl($userData['entity_id']);?>">
+            <div class="profile-img">
+
+                <?php  if($userObjBlock->getUserProfile($userData['entity_id'])) { 
+                 ?>
+                <img  aria-hidden="true" class="iris_card__icon-img"  src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($userObjBlock->getUserProfile($userData['entity_id'] ))]); ?>" alt="<?php echo __($userData['firstname']); ?>" > 
+                <?php } else { ?>
+                 <img aria-hidden="true" class="default-img"  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" alt="<?php echo __($userData['firstname']); ?>" >
+                <?php } ?>
+
+            </div>
+            <div class="user-name">
+                <span><?php echo __($userData['firstname']); ?></span>
+            </div>
+             <div class="author-desc"> 
+               <a href="<?php  echo $userObjBlock->getVideoUserUrl($userData['entity_id']); ?>"  class="img-box">
+
+                <?php  if($userObjBlock->getUserProfile($userData['entity_id'])) { 
+                 ?>
+                <img src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($userObjBlock->getUserProfile($userData['entity_id'] ))]); ?>" alt="<?php echo __($userData['firstname']); ?>" class="user-img-icon"> 
+                <?php } else { ?>
+                 <img  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" class="user-default-icon">
+                <?php } ?>
+
+                  <span class="author-name-box"> <a href="<?php  echo $userObjBlock->getVideoUserUrl($userData['entity_id']); ?>" style="padding-left: 7px;"><span><?php echo __($userData['firstname']); ?></span></a> 
+                  </span>                        
+               </a>
+            </div>  
+       </a>                
+    </div>
+</div>
+<?php } ?> 
+</div>
+<?php } ?>
+<!-- <div id="map" class="col-md-8 col-sm-8"></div> -->
+<?php
+//$allStores = $this->getAllStores();
+//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+?>
+<script>
+    require([
+        "jquery"
+    ], function ($) {
+        
+    });
+
+</script>

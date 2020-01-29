@@ -1,0 +1,127 @@
+<?php
+
+
+
+if (!$this->_getConfig('isenabled', 1)) return;
+
+
+
+$helperSearch = $this->helper('Magento\Search\Helper\Data');
+
+$helper = $this->helper('Sm\SearchBox\Helper\Data');
+
+$tag_id = 'sm_searchbox' . rand() . time();
+
+
+
+$pretext = $this->_getConfig('pretext');
+
+$posttext = $this->_getConfig('posttext');
+
+
+?>
+
+
+
+<div id="<?php echo $tag_id; ?>" class="sm-searchbox">
+
+    <?php
+
+    if (!empty($pretext)) { ?>
+
+        <div class="pre-text"><?php echo $pretext; ?></div>
+
+    <?php } ?>
+
+
+
+
+
+    <div class="sm-searchbox-content">
+
+        <form class="form minisearch vv_module" id="searchbox_mini_form" action="<?php /* @escapeNotVerified */
+
+        echo $block->getResultUrl() ?>" method="get">
+
+            <div class="field searchbox">
+
+                <div class="control">
+
+                    <select class="cat searchbox-cat" name="search_for">
+
+                         <?php $search_options = $block->getAllSearchOption(); ?>
+                        <?php  foreach ($search_options as $search_option) { ?>
+
+                            <option value="<?php echo $search_option['value']; ?>" <?php echo(($this->getRequest()->getParam('search_for') && ($this->getRequest()->getParam('search_for') == $search_option['value'])) ? "selected" : ''); ?> ><?php echo $search_option['label']; ?></option>
+
+                        <?php } ?>
+
+                    </select>
+
+                    <span>|</span>
+
+                    <input id="searchbox" 
+
+                           type="text"
+
+                           name="<?php /* @escapeNotVerified */
+
+                           echo $helperSearch->getQueryParamName() ?>"
+
+                           value="<?php echo $this->getRequest()->getParam('q');?>"
+
+                           required = "required" />
+
+                    <div id="searchbox_autocomplete" class="search-autocomplete"></div>
+
+                </div>
+ 
+            </div>
+
+            <div class="actions">
+
+                <button type="submit" title="<?php echo $block->escapeHtml(__('Search')) ?>" class="btn-searchbox">
+
+                    <span><?php /* @escapeNotVerified */
+
+                        echo __('Search'); ?></span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+    <?php
+
+    if (!empty($posttext)) { ?>
+
+        <div class="post-text"><?php echo $posttext; ?></div>
+
+    <?php } ?>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    require([
+
+        'jquery'
+
+    ], function ($) {
+
+
+
+
+
+    });
+
+</script>

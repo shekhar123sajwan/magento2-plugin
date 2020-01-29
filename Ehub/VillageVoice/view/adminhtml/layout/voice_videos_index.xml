@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Ehub\VillageVoice\Block\Adminhtml\Videos" name="videos.grid.container">
+                <block class="Magento\Backend\Block\Widget\Grid" name="videos.grid" as="grid">
+                    <arguments>
+                        <argument name="v_id" xsi:type="string">v_id</argument>
+                        <argument name="dataSource" xsi:type="object">Ehub\VillageVoice\Model\ResourceModel\Videos\Collection</argument>
+                        <argument name="default_sort" xsi:type="string">v_id</argument>
+                        <argument name="default_dir" xsi:type="string">ASC</argument>
+                        <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="voice_videos_grid.grid.columnSet" as="grid.columnSet">
+                        <arguments>
+                            <argument name="rowUrl" xsi:type="array">
+                                <item name="path" xsi:type="string">*/*/edit</item>
+                                <item name="extraParamsTemplate" xsi:type="array">
+                                    <item name="v_id" xsi:type="string">getId</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="v_id">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">ID</argument>
+                                <argument name="index" xsi:type="string">v_id</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="v_title">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Title</argument>
+                                <argument name="index" xsi:type="string">v_title</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="v_url">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">URL</argument>
+                                <argument name="index" xsi:type="string">v_url</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="email">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">User Email</argument>
+                                <argument name="index" xsi:type="string">email</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="v_status">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Status</argument>
+                                <argument name="index" xsi:type="string">v_status</argument>
+                                <argument name="type" xsi:type="string">options</argument>
+                                <argument name="options" xsi:type="options" model="Ehub\VillageVoice\Model\System\Config\Status"/>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="created_at">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Created Date</argument>
+                                <argument name="index" xsi:type="string">created_at</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="filter" xsi:type="string">0</argument>
+                                <argument name="sortable" xsi:type="string">0</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Massaction" as="grid.massaction" name='videos.grid.massaction'>
+                        <arguments>
+                            <argument name="massaction_id_field" xsi:type="string">v_id</argument>
+                            <argument name="form_field_name" xsi:type="string">v_id</argument>
+                            <argument name="use_select_all" xsi:type="string">1</argument>
+                            <argument name="options" xsi:type="array">
+                                <item name="disable_video" xsi:type="array">
+                                    <item name="label" xsi:type="string" translate="true">Disable</item>
+                                    <item name="url" xsi:type="string">*/*/disable</item>
+                                    <item name="confirm" xsi:type="string">Are you sure?</item>
+                                </item>
+                                <item name="enable_video" xsi:type="array">
+                                    <item name="label" xsi:type="string" translate="true">Enable</item>
+                                    <item name="url" xsi:type="string">*/*/enable</item>
+                                    <item name="complete" xsi:type="string">Enable</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
+  

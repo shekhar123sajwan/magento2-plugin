@@ -1,0 +1,597 @@
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/ytextend.css" />
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/yttheme.css" />
+
+<style>
+.v-bottom-text-section {
+  padding: 10px;
+}
+
+.left-side-section .video-title {
+  padding: 6px 4px;
+}
+.left-side-section .created-date ,.left-side-section .video-user{
+  margin: 5px 0;
+  padding: 0px 5px;
+}
+.left-side-section .video-assets {
+    margin: 5px 0;
+    padding: 4px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;   
+}
+.left-side-section .video-assets .asset-wrapper {
+    display: flex;
+    justify-content: end;
+    flex-direction: row; 
+    padding: 5px;
+  }
+
+.left-side-section .video-assets .asset-wrapper .icon {
+
+    margin-right: 4px;
+}
+
+.left-side-section .v-main-wrapper:hover {
+    background: #ccc6c626;
+}
+.left-side-section .video-assets .video-user {
+  display: inline-block;
+}
+
+.left-side-section .video-description-section {
+    margin: 24px 0px;
+  }
+
+ .left-side-section .v-main-wrapper {
+    margin-right: 10px;
+    background: transparent;
+    border-radius: 5px;
+}
+ .left-side-section .video-user {
+      display: inline-flex;
+ }
+  .left-side-section .video-user a {
+        margin-right: 4rem;
+  }
+  .left-side-section .video-user .follow-user {
+    height: 25px;
+  }
+  .follow-btn{
+    height: inherit;
+    padding: 3px 15px !important;
+    font-size: 11px !important;
+    background: #00adef  !important;
+    font-weight: bold !important;
+  }
+
+  button.follow-btn, button.follow-btn:focus  {
+   height: inherit;
+    padding: 3px 15px !important;
+    font-size: 11px !important;
+    background: #00adef  !important;
+    font-weight: bold !important;
+    line-height: inherit;
+}
+
+  span.fa-plus {
+    margin-right: 4px;
+  }
+  .comment-box-section .add-comment-section {
+    display: grid;
+    clear: both;
+  }
+  .comment-box-section .add-comment-section .comment-form {
+    position: relative;
+  }
+  .comment-form .comment-portrait {
+    float: left;
+    top: 25%;
+    position: absolute;
+    /* transform: translate(19%,108%) !important; */
+    /* bottom: 50%; */
+    left: 4%;
+  }
+  img.circle-img {
+    border-radius: 49%;
+    width: 27px;
+  }
+  form.comment-body {
+    float: right;
+    width: 90%;
+  }
+
+  .comments-list .comment-body {
+    float: right;
+    width: 93%;
+  }
+ .comments-list .comment-portrait {
+    float: left;
+    position: relative;
+  }
+  .comments-list .comment-portrait .user-pic {
+           margin-left: 1.5rem;
+           margin-top: 4px;
+  }
+  img.user-circle-img {
+    border-radius: 50%;
+    top: 5%;
+    width: 27px;
+  }
+
+  .comment-body .user-name {
+    font-weight: bold;
+    text-transform: capitalize;
+        float: left;
+}
+.comments-list .user-comment {
+    clear: both;
+    padding: 0px 0px;
+    padding-bottom: 12px;
+}
+.comment-body .comment-date {
+    float: left;
+    margin-left: 14px;
+    font-weight: 500;
+    color: #9e9898;
+    font-size: 12px;
+    padding-top: 3px;
+}
+.left-side-section .created-date {
+    color: #9e9898;
+    font-size: 13px;
+}
+
+#btn_load_more {
+    width: 100%;
+    background: transparent;
+    box-shadow: -2px 3px 7px 0px #a29f9f66;
+    color: #337ab7 !important;
+    border: 1px solid #b1ababb5 !important;
+    }
+
+.total-comments {
+  padding: 8px 23px;
+}
+
+</style>
+
+
+<div id="video-page">
+ <div id="video-player">
+  <?php $objBlock = $block->getLayout()->createBlock('Ehub\VillageVoice\Block\IndexVideo'); ?>
+  <?php $v_data = $objBlock->getVideo() ; $v_id =  $v_data['result']['v_id']; ?>
+
+<?php     
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+    $redirect = $objectManager->get('\Magento\Framework\App\Response\Http');  
+
+    if($v_data['result']['v_user_status'] == '0' && ($objBlock->isUserLogin() !== $v_data['result']['v_user_id'] ) )  {
+
+      $redirect->setRedirect('/');
+  }
+
+?>
+
+ <?php if(( ($v_data['result']['v_status'] == '0') || ($v_data['result']['v_status'] == '2') ) && ($objBlock->isUserLogin() !== $v_data['result']['v_user_id'] ) ) { 
+
+
+   if( $objBlock->isUserLogin() ) {
+
+     $redirect->setRedirect('/');
+
+   }else {
+
+     $redirect->setRedirect('/customer/account/login');
+
+   }
+
+
+  } ?>
+
+ <!--  if user video not approved by admin -->
+   <?php if($v_data['result']['v_status'] == '0' && ($objBlock->isUserLogin() == $v_data['result']['v_user_id'] )) { 
+
+    echo __('<div class="alert alert-danger  alert-dismissible" style="padding: 8px; padding-right: 25px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Info!</strong> Video is not approverd by admin.</div>');
+
+   } ?>
+
+
+
+ <?php if($v_data['url_type'] !== 'facebook'){ ?>
+    <iframe title="YouTube video player" class="youtube-player" type="text/html" 
+    width="100%" height="450" src="https://www.youtube.com/embed/<?php echo $v_data['result']['v_url']; ?>"
+    frameborder="0" allowFullScreen></iframe>
+
+<?php } ?>
+
+
+<?php if(!empty($v_data['url_type']) &&  $v_data['url_type'] == 'facebook'){ ?>
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<div class="fb-video" data-href="<?php echo $v_data['result']['v_url']; ?>" data-allowfullscreen="true" data-width="auto" height="450"></div>
+
+<?php } ?>
+ </div>
+
+ 
+<div class="v-bottom-text-section">
+ <div class="row">
+   <div class="col-md-9">
+     <div class="left-side-section">
+
+        <div class="video-title">
+            <h2><?php echo __($v_data['result']['v_title']); ?></h2>
+        </div>
+
+        <div class="created-date"><?php echo $objBlock->createDateFormat( $v_data['result']['created_at']); ?></div>
+
+        <div class="video-user">
+            <a href="<?php echo $objBlock->getVideoUserUrl($v_data['result']['v_user_id']); ?>"><h4><?php echo $v_data['result']['firstname'].' '.$v_data['result']['lastname']; ?></h4></a>
+            <div class="follow-user" data-is-following="<?php if($objBlock->isFollowing()) { echo __('1'); } else { echo __('0');  } ?>">
+              <input type="hidden" id="v_user_id" value="<?php echo $v_data['result']['v_user_id'] ;?>">
+              <button class="follow-btn btn btn-primary" type="button"><span class="fa fa-plus"></span><?php if($objBlock->isFollowing()) { echo __('Following'); } else { echo __('Follow');  } ?></button>
+              <span id="user_follow_error" style="color: #827d7d; display: none;"><?php echo __('You Should Login To Follow/UnFollow The User...'); ?></span>
+            </div>
+        </div>
+
+        <div class="video-assets">
+           <div class="v-comment v-main-wrapper">
+             <a class="comment-wrapper asset-wrapper" href="javascript:void(0);"> 
+                <div class="comment-icon icon"><span class="v-icon"><i class="fa fa-comment-o"></i></span> </div>
+                <div class="comment-count"><span class="v-icon"><?php echo __($objBlock->getTotalcomments($v_id)); ?></span> </div>
+             </a>
+           </div>
+
+           <div class="v-likes v-main-wrapper" data-v-like = "<?php if($objBlock->isLikedVideo()) { echo __('1'); } else { echo __('0');  } ?>">
+             <a class="likes-wrapper asset-wrapper" href="javascript:void(0);" onclick="javascript:v_likeBtn(this)"> 
+                <div class="likes-icon icon"><span class="l-icon"><i class="fa fa-thumbs-up"></i></span> </div> 
+                <div class="likes-count"><span class="v-icon"><?php echo __( $v_data['result']['v_like_count']); ?></span> </div>
+             </a>
+           </div>
+      
+        </div>
+
+      <div id="user_like_error" style="color: red;display: none;"><?php echo __('You Should Login To Like/UnLike The Video...'); ?></div>
+
+       <hr>
+
+        <div class="video-description-section">
+            <div class="v-desc"> 
+                <p><?php echo __( $v_data['result']['v_about']); ?></p> 
+            </div> 
+        </div>
+
+<hr>
+        <div class="comment-box-section"> 
+
+          <div class="add-comment-section">
+
+            <div class="comment-form">
+
+              <input type="hidden" name="v_id" class="v_id" value="<?php echo $v_data['result']['v_id']; ?>">
+              <input type="hidden" name="user_id" class="user_id" value="<?php echo $objBlock->isUserLogin(); ?>">
+
+
+            <?php if($objBlock->isUserLogin() ) {?>              
+              <div class="comment-portrait">                 
+              <label class="circle" for="add_comment">
+                <img class="circle-img" src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>"></label>
+              </div>
+              <form class="comment-body" method="POST" action="" data-mage-init='{"validation": { "rules" : {
+                 "comment" : {
+                  "required": true
+                  } 
+               } }
+              }'>  
+                  <?php echo $block->getBlockHtml('formkey')?>
+                  <input type="hidden" name="v_id" class="v_id" value="<?php echo $v_data['result']['v_id']; ?>">
+                  <input type="hidden" name="user_id" class="user_id" value="<?php echo $objBlock->isUserLogin(); ?>">
+                  <label class="add_comment" for="add_comment"> 
+                   Add a new comment </label>
+                  <div class="add-new-comment">
+                    <textarea id="add_comment" placeholder="Add a comment" name="comment" class="comment-field" required="true"></textarea> 
+                    <p id="add_comment_error" class="error" style="color: #585353b5; display: none;"><?php echo __('Please Add Comment!'); ?></p>
+                  </div> 
+                  <button type="submit" class="btn btn-primary pull-right" id="comment_submit" name="comment_submit" <?php if(!$objBlock->isUserLogin() ) { echo 'disabled="true" '; }?>><?php echo __('Comment'); ?></button>
+
+              </form>
+
+                <?php } else {?> 
+                <div class="error has-error" style="font-size: 20px;"><p style="color: #585353b5;"><?php echo __('PLEASE login to comment on this video!'); ?></p> </div> 
+               <?php } ?> 
+
+             </div>       
+
+          </div>
+
+
+ 
+          <div class="comments-list">
+
+            <?php   $comments =  $objBlock->loadComments($v_id);?>
+            <?php  if(isset($comments) && !empty($comments) ) {  ?>
+            <?php foreach ($comments as $key => $comment) { ?>
+            <?php if($comment['status'] > 0 ) {?> 
+            <div class="user-comment">
+              <div class="comment-portrait" style="float: left;">
+              <label class="user-pic" for="user-pic">
+                <img class="user-circle-img" src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>"></label>
+              </div>
+
+              <div class="comment-body">   
+                 <div class="user-name"><a href="<?php echo $objBlock->getVideoUserUrl($comment['user_id']); ?>"><?php echo __($comment['u_name']); ?></a> </div>
+                 <div class="comment-date"><?php echo __($comment['created_date']); ?></div>
+                  <div class="user-comment">
+                    <p id="comment"><?php echo __($comment['comment']); ?></p> 
+                  </div>
+                </div>
+              </div>
+
+           <?php } } }  ?>
+
+          </div> 
+         <?php if($comments['total_comments'] >= 10) { ?>
+          <button class="btn-load-more" type="button" id="btn_load_more" data-comment-limit = "10"><span class="fa fa-plus"></span><?php echo __('Load more comments'); ?></button>  
+         <?php  } ?>         
+
+        </div>
+
+    </div>
+  </div>
+
+
+  <div class="col-md-3">
+    <div class="right-side-section">
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+
+<script>
+ require([
+      'jquery',
+      'mage/mage' ,
+      'mage/validation'
+    ], function ($) {
+   
+      var config = {};
+
+      var URL = "<?php echo  $objBlock->getAjaxUrl(); ?>";
+
+
+      jQuery(document).on('click','#comment_submit',function(e) {
+          e.preventDefault();
+          let user_id = jQuery('.user_id').val();
+          let check_comment = jQuery('#add_comment').val();
+
+          if(check_comment.length < 1) {
+            jQuery('#add_comment_error').show();
+            return;
+          }else {
+            jQuery('#add_comment_error').hide();
+          }
+
+          if(user_id == '') {
+            jQuery(document).find('.comment-form').hide();
+            jQuery(document).find('.add-comment-section').html('<p class="error" style="color:red;">You Can Not Comment Without Login Please Login First..</p>');
+            return;
+
+          }
+            var param = '';
+                jQuery.ajax({
+                    showLoader: true,
+                    url: URL,
+                    data: jQuery('form.comment-body').serialize(),
+                    type: "POST",
+                    dataType: 'json'
+                }).done(function (data) {  
+
+                    if(data.status > 0) {
+
+                     jQuery('form.comment-body').trigger('reset');
+                     
+                     jQuery.each(data.result, function (key,val) {
+
+
+          let html =  `<div class='user-comment'><div class="comment-portrait" style="float: left;">
+                        <label class="user-pic" for="user-pic">
+                          <img class="user-circle-img" src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>"></label>
+                        </div>
+
+                        <div class="comment-body">   
+                           <div class="user-name"><a href="../user/${val.user_id}">${val.u_name}</a> </div>
+                           <div class="comment-date">${val.created_date} </div>
+                            <div class="user-comment">
+                              <p id="comment">${val.comment}</p> 
+                            </div>
+                       </div></div>`;
+
+                       jQuery('.comments-list').prepend(html);  
+
+                       return false;
+
+                      });
+
+                    }
+                });
+        });
+  
+
+      jQuery('#btn_load_more').on('click', function(event) { 
+            event.preventDefault();
+            var limit_offset = jQuery(this).attr('data-comment-limit');
+            var param = '';
+              jQuery.ajax({
+                    showLoader: true,
+                    url: URL,
+                    data: 'v_id='+ jQuery('.v_id').val() +'&load_all_comments=1&limit='+limit_offset,
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+
+                        if(data.status > 0) {
+
+                          if(data.result.loadbtn !== true) {
+                            jQuery(document).find('#btn_load_more').hide(); 
+                         }
+
+                         if(data.result == null) {
+                           jQuery(document).find('#btn_load_more').hide();
+                           return;
+                         }
+
+
+                         jQuery.each(data.result.result, function(index, val) {
+
+                         let html =  `<div class='user-comment'><div class="comment-portrait" style="float: left;">
+                        <label class="user-pic" for="user-pic">
+                          <img class="user-circle-img" src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>"></label>
+                        </div>
+
+                        <div class="comment-body">   
+                           <div class="user-name"><a href="../user/${val.user_id}">${val.u_name}</a> </div>
+                           <div class="comment-date">${val.created_date} </div>
+                            <div class="user-comment">
+                              <p id="comment">${val.comment}</p> 
+                            </div>
+                        </div></div>`;
+
+                           jQuery('.comments-list').append(html);   
+                         }); 
+
+                        jQuery(document).find('#btn_load_more').attr('data-comment-limit', data.result.limit); 
+                        }
+                    }
+                });
+        });
+
+
+      //video user follow button
+      jQuery('.follow-btn').on('click', function(event) {    
+
+           event.preventDefault();
+
+           let follower_id = jQuery('.user_id');
+           let v_user_id = jQuery('#v_user_id').val();
+           let is_following = jQuery('.follow-user').attr('data-is-following');
+
+           if((follower_id.val() == '') || (!follower_id.length)  ){
+             //jQuery('#user_follow_error').show(); 
+
+             setTimeout(function() {
+                 window.location.href = "<?php echo $objBlock->getAccountLoginUrl(); ?>";
+                      
+             }, 500);
+             return;
+           }else {
+            jQuery('#user_follow_error').hide(); 
+           }
+
+           if(is_following > 0) { 
+
+              if (confirm("Do You Really Want to Unfollow!")) {
+                txt = "You pressed OK!";
+              } else {
+                txt = "You pressed Cancel!";
+                return;
+              }
+           }
+
+            var param = '';
+              jQuery.ajax({
+                    showLoader: true,
+                    url: "<?php echo  $objBlock->getAjaxFollowUrl(); ?>",
+                    data: 'f_id='+follower_id.val()+'&v_user_id='+v_user_id+'&following='+is_following,
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status > 0) {  
+
+                          if(data.follow > 0) { 
+
+                            jQuery(document).find('.follow-btn').html('<span class="fa fa-plus"></span>Following');
+
+                            jQuery(document).find('.follow-user').attr('data-is-following','1');
+
+                          }else {
+
+                            jQuery(document).find('.follow-btn').html('<span class="fa fa-plus"></span>Follow');
+
+                            jQuery(document).find('.follow-user').attr('data-is-following','0');
+                          }
+                        }  
+                    }
+                });
+        });    
+
+ 
+    });
+
+
+     //video like method  
+
+       function v_likeBtn(data) {
+
+           let v_id = jQuery('.v_id');
+
+           let v_user_id = jQuery('.user_id').val();
+
+           let user_id = jQuery('#v_user_id').val();
+
+           let v_is_liked = jQuery('.v-likes').attr('data-v-like');
+
+           console.log(v_user_id);
+
+           if( v_user_id == "" ) { 
+
+           setTimeout(function() {
+               window.location.href = "<?php echo $objBlock->getAccountLoginUrl(); ?>";
+                    
+           }, 500);
+             return;
+
+           }else {
+            jQuery('#user_like_error').hide();
+           }
+
+           if(v_is_liked > 0) { 
+
+              jQuery(document).find('.likes-wrapper').css('pointer-events', 'none');
+
+              return; 
+           }        
+
+            var param = '';
+              jQuery.ajax({
+                    showLoader: true,
+                    url: "<?php echo  $objBlock->getLikeVidoeUrl(); ?>",
+                    data: 'v_id='+v_id.val()+'&v_user_id='+v_user_id+'&v_is_like='+v_is_liked+'&user_id='+user_id+'&request=v_like',
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status > 0) {  
+
+                          if(data.is_v_liked > 0) { 
+
+                            jQuery(document).find('.likes-count span').text(data.total_likes);
+
+                            jQuery(document).find('.v-likes').attr('data-v-like','1');
+
+                          }else {
+
+                            jQuery(document).find('.likes-count span').text(data.total_likes);
+
+                            jQuery(document).find('.v-likes').attr('data-v-like','0');
+                          }
+                        }  
+                    }
+                });
+     }   
+
+</script>

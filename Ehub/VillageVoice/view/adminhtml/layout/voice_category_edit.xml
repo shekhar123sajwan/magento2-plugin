@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="Ehub\VillageVoice\Block\Adminhtml\Category\Edit\Tabs"
+                   name="voice.category.edit.tabs">
+                <block class="Ehub\VillageVoice\Block\Adminhtml\Category\Edit\Tab\Info" name="voice.category.edit.tabs.info"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">voice.category.edit.tabs.info</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Ehub\VillageVoice\Block\Adminhtml\Category\Edit"
+                   name="voice.category.edit">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

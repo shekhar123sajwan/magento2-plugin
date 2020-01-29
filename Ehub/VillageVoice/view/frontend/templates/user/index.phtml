@@ -1,0 +1,603 @@
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/ytextend.css" />
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/yttheme.css" />
+
+<style>
+.user_profile_section .user_image { 
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    flex-direction: row;
+    align-items: center; 
+    border-radius: 100%;
+    display: flex;
+    flex: 0 0 150px;
+    height: 180px; 
+    overflow: hidden;
+    position: relative;
+    width: 180px;
+    margin: auto;
+}
+
+.user_image img {
+    height: 100%;
+}
+.about_user_desc {
+     display: flex;
+    flex-direction: column;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+    margin-bottom: 7rem;
+}
+
+.about_user_desc .user_name {
+    display: inline-flex;
+    padding: 6px 3px;
+    position: relative;
+    justify-content: center;  
+}
+
+.user_name h1 {
+    font-weight: bold;
+    font-size: 22px; 
+    text-align: center !important;
+}
+span.follow_btn {
+    display: block;
+    margin-right: -8%;
+    padding-left: 10px;
+}
+button.follow_btn {
+    font-size: 10px !important; 
+    height: 26px;
+    line-height: initial;
+    background: #00abffd1;
+    font-weight: bold;
+}
+span.headline_separator:after {
+    content: "|";
+}
+.subheadline_text {
+    text-align: center;
+    font-size: 14px;
+    color: #808080b3;
+}
+.user_assets {
+  margin: 3px;
+}
+.about_user_story {
+	text-align: center;
+    max-width: 430px;
+    margin: 4px auto;
+    color: rgb(135, 156, 171);
+}
+.user_story_read_more {
+	text-align: center;
+	width: fit-content;
+	 font-size: 14px;
+    font-weight: bold;
+    color: #2ebaff;
+}
+.user_story_read_more:hover {
+ color: black;
+}
+.about_user_story p {
+	margin: 0;
+}
+.read_less {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.read_more {
+	overflow: unset;
+    text-overflow: unset;
+    display: block;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+}
+
+/*#user_videos .vv_video {
+    width: 32%;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    padding: 0px;
+    margin-right: 0px;
+    display: inline-block;
+ }*/
+
+ #user_videos .v_card {
+    position: relative; 
+    overflow: hidden;
+    width: 100%;
+    background: #FFF;
+    -webkit-appearance: none;
+    padding: 6px 9px;
+    cursor: pointer;
+}
+ #user_videos .v-img {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.23%;
+/*    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;*/
+    background-color: #000;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+}
+
+ #user_videos .v-img img {
+    vertical-align: middle;
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    -webkit-transform-style: flat;
+    transform-style: flat;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 100%;
+}
+
+.author-desc {
+    color: #867373a3;
+    font-size: 12px !important;
+}
+
+button.follow_button, button.follow_button:focus  {
+   font-size: 10px !important;
+    height: 26px;
+    line-height: initial;
+    background: #00abffd1;
+    font-weight: bold;
+}
+.fa-plus {
+    padding-right: 3px;
+}
+
+.author-desc .img-box {
+  width: 20px;
+  height: 20px;
+  display: block;
+  float: left;
+}
+
+.img-box img {
+ max-width: 100%;
+ max-height: 100%;
+ height: fit-content;
+}
+
+.author-name-box {
+    padding-left: 9px;
+    font-size: 14px;
+    vertical-align: text-top;
+}
+
+ .author-name {
+    text-transform: capitalize;
+        color: #443f3fcf;
+}
+.video-title span {
+        color: #443f3fcf;
+}
+.author-desc {
+    margin-top: 2px;
+}
+
+span.check_live_streaming  {
+    padding: 0;
+    margin: 0;
+    width: 20px;
+    margin-right: 3px;
+    cursor: pointer;
+
+}
+ .check_live_streaming>input[type="checkbox"]{
+    -webkit-appearance: initial;
+    appearance: initial;
+    background: #b3a9a9a1;;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #80808047;
+    position: relative;
+    border-radius:50%;
+    margin-right:5px;
+    cursor:pointer;
+
+
+}
+.check_live_streaming>input[type="checkbox"]:focus {
+     outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.check_live_streaming>input[type="checkbox"]:checked {
+    background: #37b932;
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.check_live_streaming>input[type="checkbox"]:checked:after {
+    /* Heres your symbol replacement */
+    content: "";
+    color: #fff; 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+</style>
+
+
+<?php  $blockObj = $block->getLayout()->createBlock('Ehub\VillageVoice\Block\User');  ?>
+
+ <?php //if($blockObj->isVVUser()) {?>
+<?php  $user = $blockObj->getUserData(); 
+?>
+
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+    $redirect = $objectManager->get('\Magento\Framework\App\Response\Http'); 
+
+
+   //check if login user
+    $login_user = false;
+
+    if($blockObj->isUserLogin() == $user['entity_id'] ) {
+        
+        $login_user = true;
+    }
+
+   if( isset($user['is_vv_user']) && !($user['is_vv_user']) && !$login_user) { 
+
+     $redirect->setRedirect('/');
+
+   }
+
+?>
+<div class="row">
+<?php
+$isLive = $blockObj->isUserLive(trim($user['entity_id'])); 
+ 
+
+$class = "col-lg-12 col-md-12 col-sm-12 col-xs-12";
+
+
+$isBtnClickable = false;
+
+if(($blockObj->isUserLogin() == $user['entity_id']) && !empty($user['vv_youtube_channel']) ) {
+
+  $isBtnClickable = true; 
+  
+}
+
+
+$liveBtnGreen = false;
+
+if(!empty($blockObj->isUserLive($user['entity_id'])) ) {
+   
+   $liveBtnGreen = true;
+
+   $class = "col-lg-6 col-md-6 col-sm-12 col-xs-12";
+
+}
+
+?>
+	<div id="user_profile" class="<?php echo $class; ?>">
+		<div id="header_section">
+        <?php
+          if( isset($user['is_vv_user']) && !($user['is_vv_user'])  && ($blockObj->isUserLogin() == $user['entity_id']) ) {
+
+             echo __('<div class="alert alert-danger  alert-dismissible" style="padding: 8px; padding-right: 25px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Info!</strong> This User Account not approverd by admin.</div>');
+          }
+        ?>
+	      <div class="user_profile_section">
+   <?php  
+          $user_id = $user['entity_id'];  
+          $avator = $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($blockObj->getUserProfile($user_id ))]); ?>          
+	      	<div class="user_image">
+	          <?php  if( $blockObj->getUserProfile( $user_id ) ) {?>
+	          <img src="<?php echo $avator; ?>">
+	        <?php } else { ?>
+	          <img src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" alt="user-image" class="img-responsive">
+	        <?php } ?>
+	      	</div>
+	      	<div class="about_user_desc">
+	
+	      		<div class="user_name">
+              <!-- checkbox is live streaming -->
+               <span class="check_live_streaming">
+                <input type="checkbox" name="live_btn" class="see_live" id="see_live" value="" 
+                 title="Please click here if you want to show your YouTube Live Feed on Good Green Karma" 
+                 style="<?php if(!$isBtnClickable) {?> pointer-events: none; <?php } ?>"
+                 >
+
+              </span>
+
+              <h1><?php echo __($user['firstname']
+	      		// .' '.$user['lastname']
+	
+	      		 ); ?></h1>
+	      		 <?php $is_c_follow_user = $blockObj->isUserFollowing($user_id); ?>
+	      		 <span class="follow_btn follow_user" data-is-following = "<?php if($is_c_follow_user) { echo __('1'); } else { echo __('0');  } ?>">
+	      		 	<button class="follow_btn" class="btn btn-default" name="btn_follow">		 		
+	      		 	<span class="fa fa-plus"></span><?php if($is_c_follow_user) { echo __('Following'); } else { echo __('Follow');  } ?></button>
+	      		 	<input type="hidden" name="user_id" class="user_id" id="user_id" value="<?php echo $blockObj->isUserLogin(); ?>">
+	      		 	<input type="hidden" name="v_user_id" class="v_user_id" id="v_user_id" value="<?php echo $user_id; ?>">
+	      		 </span> 
+	      	    </div>
+	         
+	         <div class="user_assets">
+	            <h2 class="subheadline_text">
+	            	<span class="user_videos"><?php echo __($blockObj->countUserVideos($user_id).' Videos'); ?></span>
+	            	<span class="headline_separator"></span>
+	            	<span class="user_followers"><?php echo __($blockObj->countUserFollowers($user_id).' Followers'); ?></span>
+	            	<span class="headline_separator"></span>
+	            	<span class="user_v_likes"><?php echo __($blockObj->countUserVideosLikes($user_id).' Likes'); ?></span>
+	            </h2>
+	         </div>
+	
+			<div class="about_user_story read_less"> 
+			  <p><?php if( isset($user['about_yourself'] ) && $user['about_yourself'] !== '') { echo __($user['about_yourself']); } ?></p>
+		    </div>
+		    <?php if( isset($user['about_yourself'] ) && $user['about_yourself'] !== '') {?>
+	        <a class="user_story_read_more" href="javascript:void(0);"><?php echo __('Read More'); ?></a>
+	      <?php  } ?>
+	      	</div>
+	      </div>
+		</div>
+	</div>
+
+<?php if(!empty($user['vv_youtube_channel']) ) { ?>
+	<div class="yt_live <?php echo $class; ?>" style="<?php if(!$liveBtnGreen) {?>display: none;<?php } ?>">
+		<iframe width="100%" height="349" id="y_tube_channel" src="https://www.youtube.com/embed/live_stream?channel=<?php echo $user['vv_youtube_channel']; ?>" frameborder="0" allowfullscreen></iframe>
+	</div>
+ <?php } ?>
+</div>
+<div id="user_videos" class="col-lg-12 col-md-12 col-sm-12">
+<h2 style="padding-bottom: 10px;text-transform: uppercase;"><?php echo __('Videos');?></h2>
+<?php $videos = $blockObj->getUserVideos();  
+      if($videos) {
+        foreach ($videos as $key => $video) {     ?>
+
+          <!-- skip video if user is not login user and video status is disable -->
+          <?php if( ( $blockObj->isUserLogin() !== $video['v_user_id'] ) && (($video['v_status'] == '0') || ($video['v_status'] == '2')) )  { 
+             continue;
+          } ?>
+ 
+
+           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 vv_video">
+              <div class="v_card">
+   
+                <a class="video-card" href="<?php echo $blockObj->getVideoUrl($video['v_url_key']); ?>">
+                      <div class="v-img">
+                          <img aria-hidden="true" class="iris_card__icon-img" src="<?php echo $blockObj->getBannerUrl($video['v_banner']);?>"> 
+                      </div>
+                      <div class="video-title">
+                          <span><?php echo $video['v_title'];?></span>
+                      </div>
+                </a>
+                <div class="author-desc">
+                  <a class="video-card" href="<?php echo $video['v_url_key'];?>"></a>
+                    <a href="<?php echo $blockObj->getVideoUserUrl($video['v_user_id']); ?>" class="img-box">
+
+                      <?php  if($blockObj->getUserProfile($video['v_user_id'])) { ?>
+                      <img src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($blockObj->getUserProfile($video['v_user_id']) ) ] ); ?>" alt="<?php echo __($video['firstname']); ?>" class="user-img-icon"> 
+                      <?php } else { ?>
+                       <img  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" class="user-default-icon">
+                      <?php } ?>
+
+
+                    </a>
+                    <span class="author-name-box"> 
+                      <a href="<?php echo $blockObj->getVideoUserUrl($video['v_user_id']); ?>" ><span class="author-name"><?php echo $video['firstname'];?></span></a>   
+                    </span>
+               <?php if($blockObj->isUserLogin() && ($blockObj->isUserLogin() == $user_id) ){ ?>
+                   <span style="float: right;">
+                   <a type="button" class="btn btn-success" href="../video/edit/<?php echo $video['v_id']; ?>" style="font-size: 10px;line-height: 0.8; "><?php echo __('Edit'); ?> </a> </span>
+               <?php } ?>                 
+                </div>  
+
+              </div>
+          </div>     
+   <?php  } }else { ?> 
+            <h2 align="center" style="color: rgb(135, 156, 171);"><?php echo __('Not Uploaded Any Video!');?></h2> 
+   <?php } ?>
+
+    </div>
+
+
+<script>
+
+
+
+ require([
+      'jquery',
+      'mage/mage'  
+    ], function ($) {
+
+   <?php if($liveBtnGreen) {
+    echo ' 
+    jQuery(".check_live_streaming>input[type=\'checkbox\']").prop(\'checked\', true);
+    '; 
+    }
+    ?>      
+  
+    
+    jQuery(document).ready(function($) {
+
+      var $user_pro_section =  jQuery('#user_profile');
+      
+
+        //click on live button
+       
+       jQuery('#see_live').on('click', function() {
+
+
+        if (jQuery(this).prop('checked')==true){ 
+
+           jQuery.ajax({
+                showLoader: false,
+                url: "<?php echo $blockObj->getBaseUrl(); ?>voice/user/index",
+                data: 'u_id='+ <?php echo $user_id; ?>+'&user_live_streaming=1&is_live_request=1',
+                type: "POST",
+                dataType: 'json',
+                success: function(data) {
+                  
+                  if(data.status !== false) {
+
+                   $user_pro_section.removeClass('col-lg-12 col-md-12').addClass('col-lg-6 col-md-6',500);
+
+                   jQuery('.yt_live').removeClass('col-lg-12 col-md-12').addClass('col-lg-6 col-md-6');
+
+                    
+                   setTimeout( function() { 
+
+                     jQuery('.yt_live').css('display', 'block');
+
+                     jQuery('#y_tube_channel',window.parent.document).attr('src',jQuery('#y_tube_channel',window.parent.document).attr('src')); } , 
+                     1000) 
+                  }
+       
+                },
+                error: function(xhr, textStatus, error){ 
+                    console.log(error);
+                }
+            });
+
+
+         }else {
+
+           jQuery.ajax({
+                showLoader: false,
+                url: "<?php echo $blockObj->getBaseUrl(); ?>voice/user/index",
+                data: 'u_id='+ <?php echo $user_id; ?>+'&user_live_streaming=1&is_live_request=0',
+                type: "POST",
+                dataType: 'json',
+                success: function(data) {
+       
+                },
+                error: function(xhr, textStatus, error){ 
+                    console.log(error);
+                }
+            });
+
+         } 
+
+       }) ; 
+    });
+   
+ 
+    jQuery('.user_story_read_more').on('click', function(event) {
+      
+       event.preventDefault();  
+
+         let $about_user_story =  jQuery('.about_user_story');
+
+         if($about_user_story.hasClass('read_less')) {
+ 
+          $about_user_story.removeClass('read_less', 1000).addClass('read_more');  
+
+          jQuery('.user_story_read_more').text('Read Less');
+
+         } else {
+          $about_user_story.removeClass('read_more').addClass('read_less',1000);
+
+          jQuery('.user_story_read_more').text('Read More');
+
+         }
+
+    });
+
+      //user follow button
+    jQuery('span.follow_btn').on('click', function(event) {    
+           event.preventDefault(); 
+           let follower_id = jQuery('#user_id');
+           let v_user_id = jQuery('#v_user_id').val();
+           let is_following = jQuery('.follow_user').attr('data-is-following');
+
+           if((follower_id.val() == '') || (!follower_id.length)  ){
+             //jQuery('#user_follow_error').show(); 
+
+             setTimeout(function() {
+                 window.location.href = "<?php echo $blockObj->getAccountLoginUrl(); ?>";
+                      
+             }, 500);
+             return;
+           }else {
+            jQuery('#user_follow_error').hide(); 
+           }
+
+           if(is_following > 0) { 
+
+              if (confirm("Do You Really Want to Unfollow!")) {
+                txt = "You pressed OK!";
+              } else {
+                txt = "You pressed Cancel!";
+                return;
+              }
+           }
+
+            var param = '';
+              jQuery.ajax({
+                    showLoader: true,
+                    url: "<?php echo  $blockObj->getAjaxFollowUrl(); ?>",
+                    data: 'f_id='+follower_id.val()+'&v_user_id='+v_user_id+'&following='+is_following,
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status > 0) {  
+
+                          if(data.follow > 0) { 
+
+                            jQuery(document).find('button.follow_btn').html('<span class="fa fa-plus"></span>Following');
+
+                            jQuery(document).find('span.follow_user').attr('data-is-following','1');
+
+                          }else {
+
+                            jQuery(document).find('button.follow_btn').html('<span class="fa fa-plus"></span>Follow');
+
+                            jQuery(document).find('span.follow_user').attr('data-is-following','0');
+                          }
+                        }  
+                    }
+                });
+
+             return false; 
+    }); 
+
+
+ });
+
+
+
+</script>
+
+
+
+
+

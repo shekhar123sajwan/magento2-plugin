@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!--    <update handle="formkey"/>
+    <update handle="users_grid_block"/>-->
+    <body>
+        <referenceContainer name="content">
+            <block class="Ehub\VillageVoice\Block\Adminhtml\Users" name="users.grid.container">
+                <block class="Magento\Backend\Block\Widget\Grid" name="users.grid" as="grid">
+                    <arguments>
+                        <argument name="id" xsi:type="string">id</argument>
+                        <argument name="dataSource" xsi:type="object">Ehub\VillageVoice\Model\ResourceModel\Users\ApprovalRequest</argument>
+                        <argument name="default_sort" xsi:type="string">id</argument>
+                        <argument name="default_dir" xsi:type="string">ASC</argument>
+                        <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="voice_users_grid.grid.columnSet" as="grid.columnSet">
+                        <arguments>
+                            <argument name="rowUrl" xsi:type="array">
+                                <item name="path" xsi:type="string">customer/index/edit</item>
+                                <item name="extraParamsTemplate" xsi:type="array">
+                                    <item name="id" xsi:type="string">getId</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="entity_id">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">ID</argument>
+                                <argument name="index" xsi:type="string">entity_id</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="firstname">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Name</argument>
+                                <argument name="index" xsi:type="string">firstname</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="renderer" xsi:type="string">Ehub\VillageVoice\Block\Adminhtml\Users\Grid\Renderer\Name</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="facebook_profile_link">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Facebook Profile</argument>
+                                <argument name="index" xsi:type="string">facebook_profile_link</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="youtube_page_link">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">YouTube Page</argument>
+                                <argument name="index" xsi:type="string">youtube_page_link</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="about_yourself">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">About User</argument>
+                                <argument name="index" xsi:type="string">about_yourself</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Massaction" as="grid.massaction" name='users.grid.massaction'>
+                        <arguments>
+                            <argument name="massaction_id_field" xsi:type="string">entity_id</argument>
+                            <argument name="form_field_name" xsi:type="string">entity_id</argument>
+                            <argument name="use_select_all" xsi:type="string">1</argument>
+                            <argument name="options" xsi:type="array">
+                                <item name="approve_user" xsi:type="array">
+                                    <item name="label" xsi:type="string" translate="true">Approve</item>
+                                    <item name="url" xsi:type="string">*/*/approve</item>
+                                    <item name="complete" xsi:type="string">Approve</item>
+                                </item>
+                                <item name="disapprove_user" xsi:type="array">
+                                    <item name="label" xsi:type="string" translate="true">Disapprove</item>
+                                    <item name="url" xsi:type="string">*/*/disapprove</item>
+                                    <item name="confirm" xsi:type="string">Are you sure?</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
+  

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+
+        <add id="Ehub_VillageVoice::voice" title="Village Voice" module="Ehub_VillageVoice" sortOrder="51" resource="Ehub_VillageVoice::voice"/>
+        <add id="Ehub_VillageVoice::requests" title="Approval Requests" module="Ehub_VillageVoice" sortOrder="10" action="voice/users/requests" resource="Ehub_VillageVoice::requests" parent="Ehub_VillageVoice::voice"/>
+        <add id="Ehub_VillageVoice::users" title="Manage Users" module="Ehub_VillageVoice" sortOrder="10" action="voice/users" resource="Ehub_VillageVoice::users" parent="Ehub_VillageVoice::voice"/>
+        <add id="Ehub_VillageVoice::category" title="Manage Categories" module="Ehub_VillageVoice" sortOrder="10" action="voice/category" resource="Ehub_VillageVoice::category" parent="Ehub_VillageVoice::voice"/>
+        <add id="Ehub_VillageVoice::videos" title="Manage Videos" module="Ehub_VillageVoice" sortOrder="10" action="voice/videos" resource="Ehub_VillageVoice::videos" parent="Ehub_VillageVoice::voice"/>
+        <!--<add id="Ehub_VillageVoice::configuration" title="Configuration" module="Ehub_VillageVoice" sortOrder="99" parent="Ehub_VillageVoice::voice" action="adminhtml/system_config/edit/section/voice" resource="Ehub_VillageVoice::configuration"/>-->
+
+    </menu>
+</config>
+  

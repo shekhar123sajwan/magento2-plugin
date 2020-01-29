@@ -1,0 +1,342 @@
+<style>
+    #map {
+        min-height:500px;
+        height: 100%;
+        margin-top: 20px;
+    }
+    .ggk-sub-title{
+        font-weight: 600;
+    color: #1a2e3b;
+    }
+    .vv-categories .vv-category{padding: 0px; margin-right: 10px; display: inline-block;}
+    @media (min-width:1024px){
+        /*.vv-categories .vv-category{width: 15%;}*/
+    }
+
+    #category-boxes  {
+      margin: 2rem 0;
+    }
+
+    #category-boxes .vv-category {
+/*        width: 32%;
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;*/
+        padding: 0px;
+        margin-right: 0px;
+        display: inline-block; 
+    }
+
+    #category-boxes .cat-card {
+        position: relative;
+       /* max-width: 12rem;*/
+        overflow: hidden;
+        width: 100%;
+        background: #FFF;
+        -webkit-appearance: none;
+         padding: 6px 9px;
+         cursor: pointer;
+  }
+    #category-boxes .cat-img {
+        display: flex;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.23%;
+/*        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;*/
+        /*background-color: #000;*/
+        -o-object-fit: cover;
+        object-fit: cover;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-align-content: center;
+        -ms-flex-line-pack: center;
+        align-content: center;
+    }
+    #category-boxes .cat-img img {
+        vertical-align: middle; 
+        position: absolute;
+        left: 50%;
+        width: 100%;
+        -webkit-backface-visibility: visible;
+        backface-visibility: visible;
+        -webkit-transform-style: flat;
+        transform-style: flat;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        height: 100%;
+    }
+
+    #category-boxes .overlay-text {
+        top: 35%;
+        display: inline-table;
+        z-index: 5555555;
+        border-radius: 0;
+        height: 100%;
+        color: #FFF;
+        padding-bottom: 0px;
+        margin-bottom: 8px;
+        position: absolute;
+        left: 21%; 
+        font-size: 10px;
+        max-width: 85px;
+    }
+    #category-boxes .overlay-text h3{
+        max-width: 80px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; 
+    }
+
+    #pagination .disabled {
+        pointer-events: none;
+    }
+
+    .pagination>li.page.current > span {
+     background: #eee;
+    }
+
+    @media only screen 
+    and (min-device-width: 320px) 
+    and (max-device-width: 767px)
+    and (-webkit-min-device-pixel-ratio: 2)
+    and (orientation: portrait) {
+/*        #category-boxes .vv-category {
+        width: 32.4%;
+        padding: 1px;
+        }*/
+        #category-boxes .cat-card {
+        max-width: 12rem;
+        padding: 0px 3px;
+        margin-bottom: 5px;
+        }
+        .video-card .video-title, .cat-card .author-desc {
+           font-size: 10px;
+        }
+    }
+
+    @media only screen 
+    and (min-device-width: 320px) 
+    and (max-device-width: 767px)
+    and (-webkit-min-device-pixel-ratio: 2)
+    and (orientation: landscape) {
+        #category-boxes .vv-category {
+        width: 18.5%;
+        } 
+        #category-boxes .overlay-text {
+        font-size: 9px;
+        }
+    }
+
+    @media only screen 
+    and (min-device-width: 768px) 
+    and (max-device-width: 1024px) 
+    and (orientation: portrait) 
+    and (-webkit-min-device-pixel-ratio: 1) {
+/*        #category-boxes .vv-category {
+        width: 19.4%;
+        padding: 2px;
+        }*/
+        #category-boxes .cat-card {
+        max-width: 18rem;
+        }
+        #category-boxes .overlay-text {
+        top: 40%;
+        left: 29%;
+        }
+    }
+    @media only screen 
+    and (min-width: 1324px) {
+       /* #category-boxes .vv-category { width: 10%;}*/
+    }
+
+    .author-desc .img-box {
+      width: 25px;
+      height: 25px;
+      display: block;
+      float: left;
+    }
+
+   .img-box img {
+     max-width: 100%;
+     max-height: 100%;
+     height: fit-content;
+    }
+</style>
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/ytextend.css" />
+<link rel="stylesheet" type="text/css"  media="all" href="http://dev.goodgreenkarma.com/pub/static/frontend/Sm/emarket/en_US/css/yttheme.css" />
+<?php 
+    $blockObj= $block->getLayout()->createBlock('Ehub\VillageVoice\Block\SearchResults');
+    $results = $blockObj->getSearchResults();   
+?>
+
+
+<?php if(isset($results['s_result']) && !empty($results['s_result']) ) { ?>
+<!-- section for videos search -->
+<?php if($results['s_for'] == 'videos') { ?>
+<div class="container-inner vv-categories">
+
+    <div id = "category-boxes" class="col-lg-12 col-md-12 col-sm-12">
+
+   <?php foreach ($results['s_result'] as $key => $video) { ?>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 vv-category">
+            <div class="cat-card">
+ 
+              <a class="video-card" href="<?php echo $blockObj->getVideoUrl($video['v_url_key']);?>">
+                    <div class="cat-img">
+                        <img aria-hidden="true" class="iris_card__icon-img" 
+                        src="<?php  echo $blockObj->getBannerUrl($video['v_banner']); ?>"> 
+                    </div>
+                    <div class="video-title">
+                        <span><?php echo __($video['v_title']); ?></span>
+                    </div>
+                     <div class="author-desc"> 
+                       <a href="<?php  echo $blockObj->getVideoUserUrl($video['v_user_id']); ?>"  class="img-box">
+
+                       	<?php  if($blockObj->getUserProfile($video['v_user_id'])) { 
+                       	 ?>
+                        <img src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($blockObj->getUserProfile($video['v_user_id']) ) ] ); ?>" alt="<?php echo __($video['firstname']); ?>" class="user-img-icon"> 
+                        <?php } else { ?>
+                         <img  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" class="user-default-icon">
+                        <?php } ?>
+
+                          <span class="author-name-box"> <a href="<?php  echo $blockObj->getVideoUserUrl($video['v_user_id']); ?>" style="padding-left: 7px;"><span><?php echo __($video['firstname']); ?></span></a> 
+                          </span>                        
+                       </a>
+                    </div>  
+               </a>                
+            </div>
+        </div>   
+   <?php }  ?>
+
+   </div> 
+
+</div>
+ <?php  }  ?>
+
+<!-- section for user profile search -->
+<?php if($results['s_for'] == 'pro') { ?>
+<div class="container-inner vv-categories">
+
+    <div id = "category-boxes" class="col-lg-12 col-md-12 col-sm-12">
+
+   <?php foreach ($results['s_result'] as $key => $user) { ?>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 vv-category">
+            <div class="cat-card">
+ 
+              <a class="video-card" href="<?php echo $blockObj->getVideoUserUrl($user['entity_id']);?>">
+                    <div class="cat-img">
+
+                        <?php  if($blockObj->getUserProfile($user['entity_id'])) { 
+                         ?>
+                        <img  aria-hidden="true" class="iris_card__icon-img"  src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($blockObj->getUserProfile($user['entity_id'] ))]); ?>" alt="<?php echo __($user['firstname']); ?>" > 
+                        <?php } else { ?>
+                         <img aria-hidden="true" class="default-img"  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" alt="<?php echo __($user['firstname']); ?>" >
+                        <?php } ?>
+
+                    </div>
+                    <div class="video-title">
+                        <span><?php echo __($user['firstname']); ?></span>
+                    </div>
+                     <div class="author-desc"> 
+                       <a href="<?php  echo $blockObj->getVideoUserUrl($user['entity_id']); ?>"  class="img-box">
+
+                       	<?php  if($blockObj->getUserProfile($user['entity_id'])) { 
+                       	 ?>
+                        <img src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($blockObj->getUserProfile($user['entity_id'] ))]); ?>" alt="<?php echo __($user['firstname']); ?>" class="user-img-icon"> 
+                        <?php } else { ?>
+                         <img  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" class="user-default-icon">
+                        <?php } ?>
+
+                          <span class="author-name-box"> <a href="<?php  echo $blockObj->getVideoUserUrl($user['entity_id']); ?>" style="padding-left: 7px;"><span><?php echo __($user['firstname']); ?></span></a> 
+                          </span>                        
+                       </a>
+                    </div>  
+               </a>                
+            </div>
+        </div>   
+   <?php }  ?>
+
+   </div> 
+
+</div>
+<?php } ?>
+
+
+<!-- section for search videos by tag -->
+<?php if($results['s_for'] == 'v_tag') { ?>
+<div class="container-inner vv-categories">
+
+    <div id = "category-boxes" class="col-lg-12 col-md-12 col-sm-12">
+      
+   <?php foreach ($results['s_result'] as $key => $video) { ?>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 vv-category">
+            <div class="cat-card">
+ 
+              <a class="video-card" href="<?php echo $blockObj->getVideoUrl($video['v_url_key']);?>">
+                    <div class="cat-img">
+                        <img aria-hidden="true" class="iris_card__icon-img" 
+                        src="<?php  echo $blockObj->getBannerUrl($video['v_banner']); ?>"> 
+                    </div>
+                    <div class="video-title">
+                        <span><?php echo __($video['v_title']); ?></span>
+                    </div>
+                     <div class="author-desc"> 
+                       <a href="<?php  echo $blockObj->getVideoUserUrl($video['v_user_id']); ?>" class="img-box">
+
+                        <?php  if($blockObj->getUserProfile($video['v_user_id'])) { ?>
+                        <img src="<?php echo $block->getUrl('viewfile/avatar/view/', ['image' => base64_encode($blockObj->getUserProfile($video['v_user_id']) ) ] ); ?>" alt="" class="user-img-icon"> 
+                        <?php } else { ?>
+                         <img  src="<?php echo $block->getUrl('pub/media/vv_banners/').'user.jpg'; ?>" class="user-default-icon">
+                        <?php } ?>
+
+                          <span class="author-name-box"> <a href="<?php  echo $blockObj->getVideoUserUrl($video['v_user_id']); ?>" style="padding-left: 7px;"><span><?php echo __($blockObj->getCustomerdatabyId($video['v_user_id'])); ?></span></a> 
+                          </span>                        
+                       </a>
+                    </div>  
+               </a>                
+            </div>
+        </div>   
+   <?php }  ?>
+
+   </div> 
+
+</div>
+<?php } ?>
+
+
+<?php } else { ?>
+  <div>
+ 	<h2 align="center" style="color: #989090;"><?php echo __('Sorry! No results found...'); ?></h2>   
+ </div>
+
+<?php } ?>
+
+<?php $current_url =  $block->getUrl('*/*/*', ['_query' => ['q' => trim($this->getRequest()->getParam("q")), 'search_for' => trim($this->getRequest()->getParam("search_for") )] ]);
+ ?>
+ 
+     <div id = "pagination" class="col-lg-12 col-md-12 col-sm-12">
+          <?php echo $blockObj->renderPagination($results['total_pages'],$results['current_page'],$results['records_per_page'], $current_url );  ?>
+    </div>
+
+
+
+
+<?php  
+//$allStores = $this->getAllStores();   
+//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+?>
+<script>
+    require([
+        "jquery"
+    ], function ($) {
+        
+    });
+
+</script>
+

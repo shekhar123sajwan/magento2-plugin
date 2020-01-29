@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<!--<head>
+        <link src="Ehub_StoreLocator/js/googleapi.js"/>"
+    </head>-->
+    <body>
+    	<referenceBlock name="page.main.title" remove="true" />
+
+        <referenceBlock name="searchbox" class="Ehub\VillageVoice\Block\Search" template="Ehub_VillageVoice::html/search.phtml" />     	
+
+        <referenceBlock name="header.content" template="Ehub_VillageVoice::html/header.phtml"/>    	
+        <referenceContainer name="content">
+            <block class="Ehub\VillageVoice\Block\User" template="Ehub_VillageVoice::user/index.phtml" name="voice.user"  cacheable="false" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<!--<head>
+        <link src="Ehub_StoreLocator/js/googleapi.js"/>"
+    </head>-->
+    <body>
+
+        <referenceBlock name="header.content" template="Ehub_VillageVoice::html/header.phtml"/>
+
+        <referenceBlock name="searchbox" class="Ehub\VillageVoice\Block\Search" template="Ehub_VillageVoice::html/search.phtml" />         
+
+        <referenceContainer name="content">
+            <block class="Magento\Customer\Block\Form\Register" name="customer_form_register" template="Ehub_VillageVoice::form/register.phtml">
+                <container name="form.additional.info" as="form_additional_info"/>
+                <container name="customer.form.register.fields.before" as="form_fields_before" label="Form Fields Before" htmlTag="div" htmlClass="customer-form-before"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="form.additional.info">
+            <block class="Magento\Framework\View\Element\Template" name="form_additional_info_customer" template="Ehub_VillageVoice::form/additional.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
